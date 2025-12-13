@@ -9,7 +9,6 @@ SciTables is a large-scale scientific dataset designed to support research on ta
 ## Repository Structure
 
 The repository is organized as follows:
-
 SciTables/
 ├── Data/ # Dataset files (tables and description pairs by year)
 │ └── (tracked with Git LFS due to large file sizes)
