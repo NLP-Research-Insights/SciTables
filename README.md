@@ -19,7 +19,6 @@ SciTables/
 ├── LICENSE # MIT License (applies to code and dataset)
 ├── README.md
 └── requirements.txt # Python dependencies
-── 
 
 
 ## Data Storage and Git LFS
