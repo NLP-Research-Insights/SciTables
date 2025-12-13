@@ -33,18 +33,13 @@ git lfs install
 git clone https://github.com/YOUR_ORG/SciTables.git
 Without Git LFS, dataset files may appear as pointer files instead of the actual data.
 
-License
+## License
 
-This project is licensed under the MIT License.
-See the LICENSE
- file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-Dataset License
+## Dataset License
 
 The SciTables dataset is released under the MIT License.
 
-If you use this dataset in academic work, we kindly request citation of the SciTables paper or GitHub repository.
-
-
----
+If you use this dataset in academic work, we kindly request that you cite the SciTables paper or repository.
 
