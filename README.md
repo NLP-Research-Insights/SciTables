@@ -2,7 +2,7 @@
 
 Enhance Table-to-Text by LLMs using scientific tables.
 
-SciTables is a large-scale scientific dataset designed to support research on table-to-text generation, scientific reasoning, and factuality evaluation using large language models (LLMs). The dataset is constructed from scientific literature and pairs structured tables with contextual textual descriptions and metadata, comprising approximately **120K table–text pairs** spanning **10+ computer science domains**.
+SciTables is a large-scale scientific dataset designed to support research on: table-to-text generation, scientific reasoning, and factuality evaluation using large language models (LLMs). The dataset is constructed from scientific literature and pairs structured tables with contextual textual descriptions and metadata, comprising approximately **120K table–text pairs** spanning **10+ computer science domains**.
 
 ---
 
