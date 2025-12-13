@@ -19,6 +19,8 @@ SciTables/
 ├── README.md
 └── requirements.txt # Python dependencies
 
+---
+
 ## Data Storage and Git LFS
 
 Due to the large size of dataset files (e.g., JSON tables and annotations), this repository uses **Git Large File Storage (Git LFS)**.
