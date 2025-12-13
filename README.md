@@ -13,7 +13,7 @@ The repository is organized as follows:
 SciTables/
 ├── Data/ # Dataset files (tables and description pairs by year)
 │ └── (tracked with Git LFS due to large file sizes)
-├── Scripts/ # Data processing, cleaning, generation and LLM as judge scripts
+├── Scripts/ # Data processing, cleaning, generation, and LLM-as-judge scripts
 ├── .gitattributes # Git LFS configuration for large JSON files
 ├── .gitignore
 ├── LICENSE # MIT License (applies to code and dataset)
