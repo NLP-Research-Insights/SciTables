@@ -30,7 +30,8 @@ Before cloning the repository, please ensure Git LFS is installed:
 
 ```bash
 git lfs install
-git clone https://github.com/YOUR_ORG/SciTables.git
+[git clone https://github.com/NLP-Research-Insights/SciTables.git]
+```
 Without Git LFS, dataset files may appear as pointer files instead of the actual data.
 
 ## License
