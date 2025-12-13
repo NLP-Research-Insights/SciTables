@@ -20,7 +20,6 @@ SciTables/
 ├── README.md
 └── requirements.txt # Python dependencies
 
----
 
 ## Data Storage and Git LFS
 
