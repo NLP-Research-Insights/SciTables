@@ -1,45 +1,178 @@
-# SciTables
+# SciTables : A Dataset and Evaluation Framework for Complex Table-to-Text Generation [Experiment, Analysis & Benchmark]
+<p align="center">
+  <a href="PAPER_LINK">Paper</a> •
+  <a href="#dataset">Dataset</a> •
+  <a href="#repository-structure">Code</a> •
+  <a href="#citation">Citation</a> •
+  <a href="LICENSE">License</a>
+</p>
 
-Enhance Table-to-Text by LLMs using scientific tables.
+**SciTables** is an automated pipeline for constructing high-quality scientific table-to-text datasets from expert-authored scientific descriptions.
 
-SciTables is a large-scale scientific dataset designed to support research on: table-to-text generation, scientific reasoning, and factuality evaluation using large language models (LLMs). The dataset is constructed from scientific literature and pairs structured tables with contextual textual descriptions and metadata, comprising approximately **120K table–text pairs** spanning **10+ computer science domains**.
+SciTables is built from Computer Science papers on arXiv and contains complex scientific tables paired with naturally occurring expert-written descriptions. It is designed to evaluate whether language models can generate faithful, concise, and reasoning-aware descriptions from structured scientific content.
 
----
+<p align="center">
+  <img src="assets/framework.png" width="850">
+</p>
+
+<p align="center">
+  <b>Overview of the SciTables data construction and evaluation pipeline.</b>
+</p>
+
+## Why SciTables?
+
+Existing table-to-text datasets often focus on open-domain or simplified tables. In contrast, scientific tables frequently contain dense numerical values, symbols, mathematical notation, model comparisons, and experimental results.
+
+Generating descriptions for such tables requires models to perform content selection, comparison, aggregation, numerical reasoning, and faithful scientific communication. SciTables provides a realistic benchmark for evaluating these capabilities.
+
+## Key Features
+
+- Scientific table-to-text dataset from arXiv Computer Science papers
+- Complex tables with numeric, symbolic, and mathematical content
+- Naturally occurring expert-written descriptions
+- Semi-automated data construction pipeline with quality control
+- Evaluation with automatic metrics, human judgments, and LLM-as-a-judge assessment
+- Analysis of how table complexity affects generation quality
+
+## Dataset Construction
+
+SciTables is constructed from LaTeX source files of arXiv Computer Science papers from 2017 to 2023. The pipeline consists of four main stages:
+
+1. **Source collection:** collect LaTeX source files from arXiv papers.
+2. **Table extraction:** extract candidate tables from LaTeX documents.
+3. **Filtering and alignment:** select suitable tables and align them with explicitly referenced textual descriptions.
+4. **Quality verification:** apply automatic and manual checks to improve dataset reliability.
+
+<p align="center">
+  <img src="assets/filtering_characteristics.png" width="850">
+</p>
+
+<p align="center">
+  <b>Filtering process and dataset characteristics.</b>
+</p>
+
+## Examples
+
+<p align="center">
+  <img src="assets/Example1.png" width="800">
+</p>
+
+<p align="center">
+  <img src="assets/Example2.png" width="800">
+</p>
+
+## Dataset
+
+The dataset files and metadata are provided in this repository. Please see the `Data/` directory for dataset splits, metadata, and preprocessing outputs. See [Repository Structure](#repository-structure) for a full layout.
+
+## Benchmarking
+
+We evaluate multiple language models on scientific table-to-text generation, including LLaMA, Mistral, Gemma, Phi, and Aya.
+
+Our experiments study:
+
+- generation with and without table captions
+- zero-shot, few-shot, and Chain-of-Thought prompting
+- task-specific fine-tuning
+- evaluation using original reference paragraphs and complete table-centric summaries
+- the impact of table complexity on generation quality
+
+## Evaluation
+
+SciTables uses both automatic and holistic evaluation methods.
+
+### Automatic Metrics
+
+We report semantic, lexical, and distributional metrics:
+
+- SBERT similarity
+- BERTScore F1
+- BLEU
+- ROUGE-L
+- METEOR
+- KLLC divergence
+
+KLLC denotes the KL divergence between the unigram distributions of the generated text and the reference caption. Lower KLLC is better.
+
+### LLM-as-a-Judge Evaluation
+
+Automatic similarity metrics may miss important scientific errors. A generated description can be close to the reference while still being numerically incorrect, factually inconsistent, or logically shallow.
+
+To address this, we use an LLM-as-a-judge framework to evaluate generated descriptions across multiple dimensions, including factual accuracy, numerical faithfulness, comparative reasoning, trend analysis, content selection, and coherence.
+
+## Results
+
+We report representative results below. Full results, including caption-provided evaluation, prompting strategies, complete-summary evaluation, holistic judge scores, and structural complexity analysis, are available in the paper.
+
+### Main Benchmark Results
+
+The table below reports model performance in the **masked-caption setting**, where captions are hidden and models must generate descriptions from table content alone. We show the overall results across table sizes.
+
+| Model | SBERT ↑ | BERTScore F1 ↑ | BLEU ↑ | ROUGE-L ↑ | METEOR ↑ | KLLC ↓ |
+|---|---:|---:|---:|---:|---:|---:|
+| LLaMA | 0.696 ± 0.105 | 0.841 ± 0.018 | 0.016 ± 0.015 | 0.168 ± 0.052 | 0.187 ± 0.069 | 12.888 ± 3.948 |
+| Mistral | 0.744 ± 0.131 | 0.840 ± 0.021 | 0.021 ± 0.022 | 0.180 ± 0.062 | 0.206 ± 0.083 | 8.733 ± 5.471 |
+| Gemma | 0.716 ± 0.112 | 0.841 ± 0.019 | 0.015 ± 0.014 | 0.169 ± 0.054 | 0.183 ± 0.071 | 12.880 ± 3.994 |
+| Phi | 0.670 ± 0.142 | 0.834 ± 0.017 | 0.017 ± 0.023 | 0.163 ± 0.053 | 0.197 ± 0.074 | 12.525 ± 4.124 |
+| Aya | 0.666 ± 0.149 | 0.841 ± 0.020 | 0.017 ± 0.024 | 0.168 ± 0.057 | 0.175 ± 0.073 | 12.858 ± 4.060 |
+
+Mistral achieves the strongest overall SBERT score and the lowest KLLC, while most models show similar BERTScore F1 values. These results suggest that scientific table-to-text generation remains challenging when captions are unavailable.
+
+### Effect of Task-Specific Fine-Tuning
+
+We fine-tune Gemma using table-caption pairs from the SciTables training set and compare it with the base Gemma model on the held-out test set.
+
+| Model | SBERT ↑ | BERTScore F1 ↑ | BLEU ↑ | ROUGE-L ↑ | METEOR ↑ | KLLC ↓ |
+|---|---:|---:|---:|---:|---:|---:|
+| Gemma | 0.716 ± 0.112 | 0.841 ± 0.019 | 0.015 ± 0.014 | 0.169 ± 0.054 | 0.183 ± 0.071 | 12.880 ± 3.994 |
+| Gemma-FT-caption | 0.704 ± 0.089 | 0.856 ± 0.025 | 0.029 ± 0.047 | 0.173 ± 0.099 | 0.233 ± 0.132 | 16.744 ± 5.485 |
+
+Fine-tuning improves BERTScore F1, BLEU, ROUGE-L, and METEOR, suggesting that task-specific adaptation helps the model better match scientific table descriptions. However, the increase in KLLC indicates that fine-tuning may also shift the lexical distribution away from the reference captions.
+
+### Human–LLM Judge Agreement
+
+We evaluate whether Qwen3.6-27B aligns with expert human ratings using a ten-dimensional rubric. Agreement is measured using Spearman’s ρ and Kendall’s τ.
+
+| Setting | Avg. Spearman’s ρ ↑ | Avg. Kendall’s τ ↑ |
+|---|---:|---:|
+| Base | 0.889 | 0.841 |
+| Fine-tuned | 0.961 | 0.942 |
+
+Qwen3.6-27B shows strong agreement with human evaluators, supporting the use of LLM-as-a-judge evaluation as a scalable complement to expert assessment.
+
+## Applications
+
+SciTables can support research on:
+
+- scientific table-to-text generation
+- table understanding and reasoning
+- evidence-grounded scientific summarization
+- fact verification between tables and textual claims
+- retrieval-augmented scientific assistants
+- instruction tuning for scientific communication
 
 ## Repository Structure
 
-The repository is organized as follows:
-```
-SciTables/
-├── Data/ # Dataset files (tables and description pairs by year)
-│ └── (tracked with Git LFS due to large file sizes)
-├── Scripts/ # Data processing, cleaning, generation, and LLM-as-judge scripts
-├── .gitattributes # Git LFS configuration for large JSON files
-├── .gitignore
-├── LICENSE # MIT License (applies to code and dataset)
-├── README.md
-└── requirements.txt # Python dependencies
-```
+| Path | Description |
+|---|---|
+| `Data/` | Dataset files, metadata, and splits |
+| `Scripts/` | Data extraction, filtering, evaluation, and reproduction scripts |
+| `assets/` | README figures and examples |
 
-## Data Storage and Git LFS
+## Limitations
 
-Due to the large size of dataset files (e.g., JSON tables and annotations), this repository uses **Git Large File Storage (Git LFS)**.
+SciTables has several limitations. First, it is derived from Computer Science papers on arXiv, which may limit generalization to other scientific domains. Second, table-text alignment is inferred from document references and may occasionally miss broader contextual information. Third, reference descriptions reflect authors’ selective interpretations rather than exhaustive table summaries. Finally, while LLM-as-a-judge evaluation is scalable and shows strong agreement with human ratings, automated judges may still contain biases and cannot fully replace expert evaluation.
 
-Before cloning the repository, please ensure Git LFS is installed:
+Future work will expand SciTables to additional scientific domains, incorporate richer document context, and explore more comprehensive evaluation frameworks.
 
-```bash
-git lfs install
-git clone https://github.com/NLP-Research-Insights/SciTables.git
-```
-Without Git LFS, dataset files may appear as pointer files instead of the actual data.
+## Citation
 
-## License
+If you use SciTables, please cite our paper:
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Dataset License
-
-The SciTables dataset is released under the MIT License.
-
-If you use this dataset in academic work, we kindly request that you cite the SciTables paper or repository.
-
+```bibtex
+@inproceedings{scitables2026,
+  title={A Dataset and Evaluation Framework for Complex Table-to-Text Generation [Experiment, Analysis & Benchmark]},
+  author={...},
+  booktitle={...},
+  year={2026}
+}
