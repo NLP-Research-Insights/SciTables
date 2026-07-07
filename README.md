@@ -110,11 +110,11 @@ The table below reports model performance in the **masked-caption setting**, whe
 
 | Model | SBERT ↑ | BERTScore F1 ↑ | BLEU ↑ | ROUGE-L ↑ | METEOR ↑ | KLLC ↓ |
 |---|---:|---:|---:|---:|---:|---:|
-| LLaMA | 0.696 ± 0.105 | 0.841 ± 0.018 | 0.016 ± 0.015 | 0.168 ± 0.052 | 0.187 ± 0.069 | 12.888 ± 3.948 |
-| Mistral | 0.744 ± 0.131 | 0.840 ± 0.021 | 0.021 ± 0.022 | 0.180 ± 0.062 | 0.206 ± 0.083 | 8.733 ± 5.471 |
-| Gemma | 0.716 ± 0.112 | 0.841 ± 0.019 | 0.015 ± 0.014 | 0.169 ± 0.054 | 0.183 ± 0.071 | 12.880 ± 3.994 |
-| Phi | 0.670 ± 0.142 | 0.834 ± 0.017 | 0.017 ± 0.023 | 0.163 ± 0.053 | 0.197 ± 0.074 | 12.525 ± 4.124 |
-| Aya | 0.666 ± 0.149 | 0.841 ± 0.020 | 0.017 ± 0.024 | 0.168 ± 0.057 | 0.175 ± 0.073 | 12.858 ± 4.060 |
+| LLaMA | 0.696&nbsp;±&nbsp;0.105 | 0.841&nbsp;±&nbsp;0.018 | 0.016&nbsp;±&nbsp;0.015 | 0.168&nbsp;±&nbsp;0.052 | 0.187&nbsp;±&nbsp;0.069 | 12.888&nbsp;±&nbsp;3.948 |
+| Mistral | 0.744&nbsp;±&nbsp;0.131 | 0.840&nbsp;±&nbsp;0.021 | 0.021&nbsp;±&nbsp;0.022 | 0.180&nbsp;±&nbsp;0.062 | 0.206&nbsp;±&nbsp;0.083 | 8.733&nbsp;±&nbsp;5.471 |
+| Gemma | 0.716&nbsp;±&nbsp;0.112 | 0.841&nbsp;±&nbsp;0.019 | 0.015&nbsp;±&nbsp;0.014 | 0.169&nbsp;±&nbsp;0.054 | 0.183&nbsp;±&nbsp;0.071 | 12.880&nbsp;±&nbsp;3.994 |
+| Phi | 0.670&nbsp;±&nbsp;0.142 | 0.834&nbsp;±&nbsp;0.017 | 0.017&nbsp;±&nbsp;0.023 | 0.163&nbsp;±&nbsp;0.053 | 0.197&nbsp;±&nbsp;0.074 | 12.525&nbsp;±&nbsp;4.124 |
+| Aya | 0.666&nbsp;±&nbsp;0.149 | 0.841&nbsp;±&nbsp;0.020 | 0.017&nbsp;±&nbsp;0.024 | 0.168&nbsp;±&nbsp;0.057 | 0.175&nbsp;±&nbsp;0.073 | 12.858&nbsp;±&nbsp;4.060 |
 
 Mistral achieves the strongest overall SBERT score and the lowest KLLC, while most models show similar BERTScore F1 values. These results suggest that scientific table-to-text generation remains challenging when captions are unavailable.
 
@@ -124,8 +124,8 @@ We fine-tune Gemma using table-caption pairs from the SciTables training set and
 
 | Model | SBERT ↑ | BERTScore F1 ↑ | BLEU ↑ | ROUGE-L ↑ | METEOR ↑ | KLLC ↓ |
 |---|---:|---:|---:|---:|---:|---:|
-| Gemma | 0.716 ± 0.112 | 0.841 ± 0.019 | 0.015 ± 0.014 | 0.169 ± 0.054 | 0.183 ± 0.071 | 12.880 ± 3.994 |
-| Gemma-FT-caption | 0.704 ± 0.089 | 0.856 ± 0.025 | 0.029 ± 0.047 | 0.173 ± 0.099 | 0.233 ± 0.132 | 16.744 ± 5.485 |
+| Gemma | 0.716&nbsp;±&nbsp;0.112 | 0.841&nbsp;±&nbsp;0.019 | 0.015&nbsp;±&nbsp;0.014 | 0.169&nbsp;±&nbsp;0.054 | 0.183&nbsp;±&nbsp;0.071 | 12.880&nbsp;±&nbsp;3.994 |
+| Gemma-FT-caption | 0.704&nbsp;±&nbsp;0.089 | 0.856&nbsp;±&nbsp;0.025 | 0.029&nbsp;±&nbsp;0.047 | 0.173&nbsp;±&nbsp;0.099 | 0.233&nbsp;±&nbsp;0.132 | 16.744&nbsp;±&nbsp;5.485 |
 
 Fine-tuning improves BERTScore F1, BLEU, ROUGE-L, and METEOR, suggesting that task-specific adaptation helps the model better match scientific table descriptions. However, the increase in KLLC indicates that fine-tuning may also shift the lexical distribution away from the reference captions.
 
